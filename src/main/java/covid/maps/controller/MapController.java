@@ -1,10 +1,10 @@
-package pl.maps.maps.controller;
+package covid.maps.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.maps.maps.service.CovidParser;
+import covid.maps.service.CovidParser;
 
 import java.io.IOException;
 

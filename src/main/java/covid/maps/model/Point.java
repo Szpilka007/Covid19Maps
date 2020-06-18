@@ -1,4 +1,4 @@
-package pl.maps.maps.model;
+package covid.maps.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package pl.maps.maps.service;
+package covid.maps.service;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -6,7 +6,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import pl.maps.maps.model.Point;
+import covid.maps.model.Point;
 
 import java.io.IOException;
 import java.io.StringReader;
