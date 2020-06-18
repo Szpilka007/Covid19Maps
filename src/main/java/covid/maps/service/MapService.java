@@ -4,6 +4,7 @@ import covid.maps.model.Point;
 import covid.maps.repository.CovidDataRepository;
 import covid.maps.service.restDataService.CovidParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,6 +18,8 @@ public class MapService {
     private final CovidParser covidParser;
     private final CovidDataRepository covidDataRepository;
 
+    @Value("${number.days.back.to.show.on.map}")
+    private int amountBackDays;
 
     @Autowired
     public MapService(CovidParser covidParser, CovidDataRepository covidDataRepository) {
@@ -28,7 +31,7 @@ public class MapService {
         this.covidParser.loadDataToRepository();
         List<Point> pointList = new ArrayList<>();
 
-        this.covidDataRepository.getAllRecords().stream().filter(covidDataRecord -> covidDataRecord.getDay().equals(LocalDate.now().minusDays(1)))
+        this.covidDataRepository.getAllRecords().stream().filter(covidDataRecord -> covidDataRecord.getDay().equals(LocalDate.now().minusDays(amountBackDays)))
                     .forEach(covidDataRecord -> pointList.add(Point.builder()
                             .lat(covidDataRecord.getLat())
                             .lon(covidDataRecord.getLon())
