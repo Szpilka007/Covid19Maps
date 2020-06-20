@@ -1,6 +1,6 @@
-package covid.maps.service.restDataService;
+package covid.maps.service.actual.data;
 
-import covid.maps.model.CovidDataRecord;
+import covid.maps.model.entity.CovidDataRecord;
 import covid.maps.repository.CovidDataRepository;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class CovidParser {
+public class CovidDataService {
 
     private final CovidDataRepository covidDataRepository;
     private RestData restData;
@@ -27,10 +27,15 @@ public class CovidParser {
 
 
     @Autowired
-    public CovidParser(RestData restData,
-                       CovidDataRepository covidDataRepository) {
+    public CovidDataService(RestData restData,
+                            CovidDataRepository covidDataRepository) {
         this.restData = restData;
         this.covidDataRepository = covidDataRepository;
+    }
+
+    public void loadActualDataToDatabase() throws IOException {
+        covidDataRepository.deleteAll();
+        this.loadDataToRepository();
     }
 
     public void loadDataToRepository() throws IOException {
@@ -73,7 +78,7 @@ public class CovidParser {
                                 }
                             }));
 
-            this.covidDataRepository.addListRecords(covidDataRecords);
+            this.covidDataRepository.saveAll(covidDataRecords);
         }
     }
 }

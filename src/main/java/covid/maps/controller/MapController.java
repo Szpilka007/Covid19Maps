@@ -19,7 +19,7 @@ public class MapController {
     }
 
     @GetMapping
-    public String getMap(Model model) throws IOException {
+    public String getMap(Model model) {
         model.addAttribute("data", mapService.getListPoints());
         return "map";
     }
