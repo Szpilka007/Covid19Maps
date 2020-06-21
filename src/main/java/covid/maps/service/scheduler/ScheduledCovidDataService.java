@@ -1,7 +1,7 @@
-package covid.maps.service;
+package covid.maps.service.scheduler;
 
 
-import covid.maps.service.actual.data.CovidDataService;
+import covid.maps.service.updater.CovidDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,8 +20,9 @@ public class ScheduledCovidDataService {
         this.covidDataService = covidDataService;
     }
 
-    @Scheduled(cron = "0 0 7 * * ? ")
+    @Scheduled(cron = "0 0/5 0 * * ? ")
     public void loadActualDataToDatabase() throws IOException {
+        System.out.println("loading");
         covidDataService.loadActualDataToDatabase();
     }
 }

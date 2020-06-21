@@ -1,7 +1,9 @@
-package covid.maps.service;
+package covid.maps.service.points;
 
 import covid.maps.model.Point;
+import covid.maps.model.entity.CovidDataRecord;
 import covid.maps.repository.CovidDataRepository;
+import covid.maps.service.analize.Analyzer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -11,16 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MapService {
+public class PointsService {
 
     private final CovidDataRepository covidDataRepository;
+    private final Analyzer analyzer;
 
     @Value("${number.days.back.to.show.on.map}")
     private int amountBackDays;
 
     @Autowired
-    public MapService(CovidDataRepository covidDataRepository) {
+    public PointsService(CovidDataRepository covidDataRepository, Analyzer analyzer) {
         this.covidDataRepository = covidDataRepository;
+        this.analyzer = analyzer;
     }
 
     public List<Point> getListPoints() {
@@ -30,14 +34,19 @@ public class MapService {
                     .forEach(covidDataRecord -> pointList.add(Point.builder()
                             .lat(covidDataRecord.getLat())
                             .lon(covidDataRecord.getLon())
-                            .text(covidDataRecord.getCountryRegion() + " "
-                                    + covidDataRecord.getProvince()
-                                    + " Confirmed cases: " + covidDataRecord.getAmountConfirmedCases() + " "
-                                    + " Death cases: " + covidDataRecord.getAmountDeathCases() + " "
-                                    + " Recovered cases: " + covidDataRecord.getAmountRecoveredCases()
-                            )
+                            .text(this.createDescription(covidDataRecord))
                             .build()));
 
         return pointList;
+    }
+
+    public String createDescription(CovidDataRecord covidDataRecord){
+//        List<Analisis> analyses = this.analyzer.getAnalysisForActualData(this.covidDataRepository.findAll());
+        String text = covidDataRecord.getCountryRegion() + " "
+                + covidDataRecord.getProvince()
+                + " Confirmed cases: " + covidDataRecord.getAmountConfirmedCases() + " "
+                + " Death cases: " + covidDataRecord.getAmountDeathCases() + " "
+                + " Recovered cases: " + covidDataRecord.getAmountRecoveredCases();
+        return text;
     }
 }

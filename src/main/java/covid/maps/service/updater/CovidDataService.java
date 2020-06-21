@@ -1,4 +1,4 @@
-package covid.maps.service.actual.data;
+package covid.maps.service.updater;
 
 import covid.maps.model.entity.CovidDataRecord;
 import covid.maps.repository.CovidDataRepository;

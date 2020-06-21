@@ -1,4 +1,4 @@
-package covid.maps.service.actual.data;
+package covid.maps.service.updater;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
