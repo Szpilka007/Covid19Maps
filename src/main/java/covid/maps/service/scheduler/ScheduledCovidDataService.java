@@ -20,7 +20,7 @@ public class ScheduledCovidDataService {
         this.covidDataService = covidDataService;
     }
 
-    @Scheduled(cron = "0 57 9 * * ? ")
+    @Scheduled(cron = "0 9 10 * * ? ")
     public void loadActualDataToDatabase() throws IOException {
         System.out.println("loading");
         covidDataService.loadActualDataToDatabase();
