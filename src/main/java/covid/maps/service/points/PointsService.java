@@ -1,5 +1,6 @@
 package covid.maps.service.points;
 
+import covid.maps.model.Analysis;
 import covid.maps.model.Point;
 import covid.maps.model.entity.CovidDataRecord;
 import covid.maps.repository.CovidDataRepository;
@@ -41,12 +42,20 @@ public class PointsService {
     }
 
     public String createDescription(CovidDataRecord covidDataRecord){
-//        List<Analisis> analyses = this.analyzer.getAnalysisForActualData(this.covidDataRepository.findAll());
-        String text = covidDataRecord.getCountryRegion() + " "
+
+        Analysis analysis =  this.analyzer.getAnalysisForActualData(covidDataRecord.getCountryRegion(),
+                covidDataRecord.getProvince(),this.covidDataRepository.findAll());
+
+
+        return "<b>" + covidDataRecord.getCountryRegion() + "</b><br> "
                 + covidDataRecord.getProvince()
-                + " Confirmed cases: " + covidDataRecord.getAmountConfirmedCases() + " "
-                + " Death cases: " + covidDataRecord.getAmountDeathCases() + " "
-                + " Recovered cases: " + covidDataRecord.getAmountRecoveredCases();
-        return text;
+                + "<b>" + " Confirmed cases: " + "</b>" + covidDataRecord.getAmountConfirmedCases() + "<br>"
+                + "<b>" + " Death cases: " + "</b>" +  covidDataRecord.getAmountDeathCases() + "<br> "
+                + "<b>" + " Recovered cases: " + "</b>" +  covidDataRecord.getAmountRecoveredCases() + "<br>"
+                + "<b>" + " Average confirmed cases last 7 days: " + "</b>" +  analysis.getAverageConfirmedPerDayCases() + "<br>"
+                + "<b>" + " Average death cases last 7 days: " + "</b>" +  analysis.getAverageDeathPerDayCases() + "<br>"
+                + "<b>" + " Average recovered cases last 7 days: " + "</b>" +  analysis.getAverageRecoveredPerDayCases() + "<br>"
+                + "<b>" + " Average active cases last 7 days: " + "</b>" +  analysis.getAverageActiveCasesPerDay() + "<br>";
+
     }
 }

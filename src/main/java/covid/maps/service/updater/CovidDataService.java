@@ -64,7 +64,7 @@ public class CovidDataService {
                     .forEach(deathRecord ->
                             covidDataRecords.forEach(covidDataRecord -> {
                                 if (Double.parseDouble(deathRecord.get("Lat")) == covidDataRecord.getLat() &&
-                                        Double.parseDouble(deathRecord.get("Long")) == covidDataRecord.getLon()) {
+                                        Double.parseDouble(deathRecord.get("Long")) == covidDataRecord.getLon() && covidDataRecord.getDay().equals(day)) {
                                     covidDataRecord.setAmountDeathCases(Integer.parseInt(deathRecord.get(day.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)))));
                                 }
                             }));
@@ -73,7 +73,7 @@ public class CovidDataService {
                     .forEach(recoveredRecord ->
                             covidDataRecords.forEach(covidDataRecord -> {
                                 if (Double.parseDouble(recoveredRecord.get("Lat")) == covidDataRecord.getLat() &&
-                                        Double.parseDouble(recoveredRecord.get("Long")) == covidDataRecord.getLon()) {
+                                        Double.parseDouble(recoveredRecord.get("Long")) == covidDataRecord.getLon() && covidDataRecord.getDay().equals(day)) {
                                     covidDataRecord.setAmountRecoveredCases(Integer.parseInt(recoveredRecord.get(day.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)))));
                                 }
                             }));
